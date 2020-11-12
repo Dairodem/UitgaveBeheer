@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ExpenseListViewModel>
+
+
+
+<h2>Uitgaves</h2>
+
+
+@if (Model.ToList().Count < 1)
+{
+    <strong>Er zijn geen uitgaves om weer te geven</strong>
+}
+else
+{
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Omschrijving</th>
+            <th>Bedrag</th>
+            <th>Datum</th>
+        </tr>
+
+        @foreach (ExpenseListViewModel item in Model)
+        {
+            <tr>
+                <td class="dataRow" width="50px">
+                    @item.Id
+                </td>
+                <td class="dataRow" width="200px">
+                    @item.Omschrijving
+                </td>
+                <td class="dataRow" width="200px">
+                    @item.Bedrag
+                </td>
+                <td class="dataRow" width="200px">
+                    @item.Datum
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Expense" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-controller="Expense" asp-action="Update" asp-route-id="@item.Id">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="Expense" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+}

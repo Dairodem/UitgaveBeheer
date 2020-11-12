@@ -1,0 +1,12 @@
+﻿@model ExpenseDeleteViewModel
+
+
+
+<p>Weet u zeker dat u uitgave met id <strong>@Model.Id </strong>  wilt verwijderen uit de lijst?</p>
+
+<form asp-controller="Expense" asp-action="ConfirmDelete" method="post" asp-route-id="@Model.Id">
+    <div>
+        <button class="btn btn-danger" type="submit">Verwijder</button>
+        <a class="btn btn-primary" asp-controller="Expense" asp-action="List">Cancel</a>
+    </div>
+</form>
