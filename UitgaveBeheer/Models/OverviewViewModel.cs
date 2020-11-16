@@ -11,8 +11,10 @@ namespace UitgaveBeheer.Models
 
         [DataType(DataType.Date)]
         public DateTime Datum { get; set; }
+        public int IdHoogst { get; set; }
         public string OmschrijvingHoogst { get; set; }
         public double BedragHoogst { get; set; }
+        public int IdLaagst { get; set; }
         public string OmschrijvingLaagst { get; set; }
         public double BedragLaagst { get; set; }
 

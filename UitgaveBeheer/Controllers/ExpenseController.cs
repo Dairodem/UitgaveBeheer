@@ -108,11 +108,11 @@ namespace UitgaveBeheer.Controllers
         {
             DateTime myDate = (DateTime)date;
             
-            var allExpenses = _db.GetExpenses().Where(x => myDate.Year == myDate.Year).Where(x => x.Datum.Month == myDate.Month);
+            var allExpenses = _db.GetExpenses().Where(x => x.Datum.Year == myDate.Year).Where(x => x.Datum.Month == myDate.Month);
             if (allExpenses.Count() != 0)
             {
-                Expense highest = allExpenses.OrderByDescending(x => x.Bedrag).First();
-                Expense lowest = allExpenses.OrderBy(x => x.Bedrag).First();
+                Expense highest = allExpenses.OrderByDescending(x => x.Bedrag).FirstOrDefault();
+                Expense lowest = allExpenses.OrderBy(x => x.Bedrag).FirstOrDefault();
                 var groupByDay = allExpenses.GroupBy(x => x.Datum);
 
                 double max = 0;
@@ -131,6 +131,11 @@ namespace UitgaveBeheer.Controllers
                         day = item.Key;
                     }
                 }
+
+                //andere manier om duurste dag van maand te verkrijgen
+                var mostExpensiveday = allExpenses.GroupBy(x => x.Datum).Select(x => new { Date = x.Key, Value = x.ToList().Sum(x => x.Bedrag) })
+                    .OrderByDescending(x => x.Value).FirstOrDefault();
+
 
                 var cat = allExpenses.GroupBy(x => x.Categorie);
                 double highCatV = 0;
@@ -158,13 +163,15 @@ namespace UitgaveBeheer.Controllers
 
                 return View(new OverviewViewModel
                 {
-                    Datum = (DateTime)date,
+                    Datum = myDate,
+                    IdHoogst = highest.Id,
                     OmschrijvingHoogst = highest.Omschrijving,
                     BedragHoogst = highest.Bedrag,
+                    IdLaagst = lowest.Id,
                     OmschrijvingLaagst = lowest.Omschrijving,
                     BedragLaagst = lowest.Bedrag,
                     DatumDag = day,
-                    BedragDag = max,
+                    BedragDag = mostExpensiveday.Value,
                     CatHoog = highCatN,
                     BedragCatHoog = highCatV,
                     CatLaag = lowCatN,
@@ -174,7 +181,7 @@ namespace UitgaveBeheer.Controllers
                 });
             }
 
-            return View(new OverviewViewModel { Datum = (DateTime)date});
+            return View(new OverviewViewModel { Datum = myDate});
         }
     }
 }

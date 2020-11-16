@@ -5,45 +5,43 @@
 
 
 
-<h4>Maand overzicht (@Model.Datum.ToString("MMMM-yyyy"))</h4>
-<div>
+<h4 class="text-center">Maand overzicht (@Model.Datum.ToString("MMMM-yyyy"))</h4>
+<div class="buttons">
     <a class="btn btn-primary" asp-area="" asp-controller="Expense" asp-action="Overview" asp-route-date="@Model.Datum.AddMonths(-1)">Vorige</a>
     <a class="btn btn-primary" asp-area="" asp-controller="Expense" asp-action="Overview" asp-route-date="@Model.Datum.AddMonths(1)">Volgende</a>
 </div>
 
 @if (Model.BedragHoogst != 0)
 {
-    <div class="monthSelect">
+    <div class="flex-row">
         <div>
-            <div>
-                <h5>Hoogste uitgave</h5>
-                <p>Omschrijving: @Model.OmschrijvingHoogst</p>
-                <p>Bedrag: €@Model.BedragHoogst</p>
-                <a class="btn btn-primary">Link</a>
-            </div>
-            <div>
-                <h5>Laagste uitgave</h5>
-                <p>Omschrijving: @Model.OmschrijvingLaagst</p>
-                <p>Bedrag: €@Model.BedragLaagst</p>
-                <a class="btn btn-primary">Link</a>
-            </div>
+            <h5>Hoogste uitgave</h5>
+            <p>Omschrijving: @Model.OmschrijvingHoogst</p>
+            <p>Bedrag: €@Model.BedragHoogst</p>
+            <a class="btn btn-primary" asp-area="" asp-controller="Expense" asp-action="Details" asp-route-id="@Model.IdHoogst">Link</a>
         </div>
         <div>
-            <div>
-                <h5>Duurste Dag</h5>
-                <p>Datum: @Model.DatumDag.ToShortDateString()</p>
-                <p>Bedrag: @Model.BedragDag</p>
-            </div>
-            <div>
-                <h5>Duurste Categorie</h5>
-                <p>Naam: @Model.CatHoog</p>
-                <p>Bedrag: @Model.BedragCatHoog</p>
-            </div>
-            <div>
-                <h5>Goedkoopste Categorie</h5>
-                <p>Naam: @Model.CatLaag</p>
-                <p>Bedrag: @Model.BedragCatLaag</p>
-            </div>
+            <h5>Laagste uitgave</h5>
+            <p>Omschrijving: @Model.OmschrijvingLaagst</p>
+            <p>Bedrag: €@Model.BedragLaagst</p>
+            <a class="btn btn-primary" asp-area="" asp-controller="Expense" asp-action="Details" asp-route-id="@Model.IdLaagst">Link</a>
+        </div>
+    </div>
+    <div class="flex-row">
+        <div>
+            <h5>Duurste Dag</h5>
+            <p>Datum: @Model.DatumDag.ToShortDateString()</p>
+            <p>Bedrag: @Model.BedragDag</p>
+        </div>
+        <div>
+            <h5>Duurste Categorie</h5>
+            <p>Naam: @Model.CatHoog</p>
+            <p>Bedrag: @Model.BedragCatHoog</p>
+        </div>
+        <div>
+            <h5>Goedkoopste Categorie</h5>
+            <p>Naam: @Model.CatLaag</p>
+            <p>Bedrag: @Model.BedragCatLaag</p>
         </div>
     </div>
 }
@@ -51,3 +49,27 @@ else
 {
     <h5>Geen Uitgaves om weer te geven</h5>
 }
+
+
+<style>
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-top: 25px;
+    }
+
+    .flex-row > div {
+        width: 350px
+    }
+
+    .buttons {
+        justify-content: space-between;
+        display: flex;
+    }
+
+    .header {
+        text-align: center;
+        padding: 30px;
+    }
+</style>
