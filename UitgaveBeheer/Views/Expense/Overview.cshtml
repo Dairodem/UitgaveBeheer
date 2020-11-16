@@ -1,0 +1,48 @@
+﻿
+@model OverviewViewModel
+
+@if (Model != null)
+{
+    <div class="monthSelect">
+        <h4>Maand overzicht (datum)</h4>
+        <div>
+            <a class="btn btn-primary">Vorige</a>
+            <a class="btn btn-primary">Volgende</a>
+        </div>
+        <div>
+            <div>
+                <h5>Hoogste uitgave</h5>
+                <p>Omschrijving: @Model.OmschrijvingHoogst</p>
+                <p>Bedrag: €@Model.BedragHoogst</p>
+                <a class="btn btn-primary">Link</a>
+            </div>
+            <div>
+                <h5>Laagste uitgave</h5>
+                <p>Omschrijving: @Model.OmschrijvingLaagst</p>
+                <p>Bedrag: €@Model.BedragLaagst</p>
+                <a class="btn btn-primary">Link</a>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h5>Duurste Dag</h5>
+                <p>Datum: @Model.DatumDag.ToShortDateString()</p>
+                <p>Bedrag: @Model.BedragDag</p>
+            </div>
+            <div>
+                <h5>Duurste Categorie</h5>
+                <p>Naam: @Model.CatHoog</p>
+                <p>Bedrag: @Model.BedragCatHoog</p>
+            </div>
+            <div>
+                <h5>Goedkoopste Categorie</h5>
+                <p>Naam: @Model.CatLaag</p>
+                <p>Bedrag: @Model.BedragCatLaag</p>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h5>Geen Uitgaves om weer te geven</h5>
+}

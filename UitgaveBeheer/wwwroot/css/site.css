@@ -69,3 +69,15 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+/*
+    Overview 
+*/
+
+.monthSelect{
+    display: flex;
+    justify-content: center;
+    width:auto;
+    background-color: beige;
+}

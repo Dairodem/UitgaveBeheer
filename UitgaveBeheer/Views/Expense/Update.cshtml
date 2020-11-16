@@ -1,3 +1,28 @@
 ﻿@model ExpenseUpdateViewModel
 
 
+
+<form asp-controller="Expense" asp-action="Update" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Omschrijving">Omschrijving:</label>
+        <input class="form-control" asp-for="Omschrijving" value="@Model.Omschrijving"/>
+        <span class="text-danger" asp-validation-for="Omschrijving"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Bedrag">Bedrag:</label>
+        <input class="form-control" asp-for="Bedrag" value="@Model.Bedrag" />
+        <span class="text-danger" asp-validation-for="Bedrag"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Datum">Datum:</label>
+        <input class="form-control" asp-for="Datum"  value="@Model.Datum"/>
+        <span class="text-danger" asp-validation-for="Datum"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Categorie">Categorie:</label>
+        <input class="form-control" asp-for="Categorie"  value="@Model.Categorie"/>
+        <span class="text-danger" asp-validation-for="Categorie"></span>
+    </div>
+    <button class="btn btn-primary" type="submit">Bevestig</button>
+
+</form>

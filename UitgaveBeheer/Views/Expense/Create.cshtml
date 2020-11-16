@@ -1,8 +1,12 @@
 ﻿@model ExpenseCreateViewModel
 
+@{
+
+    string[] CategorieArr = new string[] { "Wagen", "Energie", "Boodschappen", "Huis", "Andere" };
+}
 
 
-<form asp-controller="Contact" asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-controller="Expense" asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Omschrijving">Omschrijving:</label>
         <input class="form-control" asp-for="Omschrijving" />
@@ -20,7 +24,12 @@
     </div>
     <div class="form-group">
         <label asp-for="Categorie">Categorie:</label>
-        <input class="form-control" asp-for="Categorie" />
+        <select class="form-control" asp-for="Categorie">
+            @for (int i = 0; i < CategorieArr.Length; i++)
+            {
+                <option value="@CategorieArr[i]">@CategorieArr[i]</option>
+            }
+        </select>
         <span class="text-danger" asp-validation-for="Categorie"></span>
     </div>
     <button class="btn btn-primary" type="submit">Bevestig</button>

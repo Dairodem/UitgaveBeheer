@@ -25,9 +25,17 @@ namespace ASPCore02.Database
             if (_expenses == null)
             {
                 _expenses = new List<Expense>();
-                Insert(new Expense { Omschrijving = "Tankbeurt", Bedrag = 78.45, Datum = DateTime.Now, Categorie = "Wagen" });
+                Insert(new Expense { Omschrijving = "Tankbeurt", Bedrag = 78.45, Datum = new DateTime(2020, 10, 20), Categorie = "Wagen" });
+                Insert(new Expense { Omschrijving = "Tankbeurt", Bedrag = 82.12, Datum = new DateTime(2020, 10, 10), Categorie = "Wagen" });
+                Insert(new Expense { Omschrijving = "Tankbeurt", Bedrag = 100.36, Datum = new DateTime(2020, 9, 15), Categorie = "Wagen" });
+                Insert(new Expense { Omschrijving = "Colruyt", Bedrag = 87.33, Datum = new DateTime(2020, 10, 11), Categorie = "Boodschappen" });
+                Insert(new Expense { Omschrijving = "Colruyt", Bedrag = 94.04, Datum = new DateTime(2020, 9, 15), Categorie = "Boodschappen" });
+                Insert(new Expense { Omschrijving = "Delhaize", Bedrag = 214.97, Datum = new DateTime(2020, 9, 23), Categorie = "Boodschappen" });
                 Insert(new Expense { Omschrijving = "Elektriciteit", Bedrag = 125.95, Datum = new DateTime(2020,10,20), Categorie = "Energie" });
                 Insert(new Expense { Omschrijving = "Elektriciteit", Bedrag = 125.95, Datum = new DateTime(2020, 9, 20), Categorie = "Energie" });
+                Insert(new Expense { Omschrijving = "Tankbeurt", Bedrag = 98.45, Datum = new DateTime(2020, 11, 19), Categorie = "Wagen" });
+                Insert(new Expense { Omschrijving = "Delhaize", Bedrag = 214.97, Datum = new DateTime(2020, 11, 19), Categorie = "Boodschappen" });
+                Insert(new Expense { Omschrijving = "Elektriciteit", Bedrag = 125.95, Datum = new DateTime(2020, 11, 20), Categorie = "Energie" });
             }
         }
 

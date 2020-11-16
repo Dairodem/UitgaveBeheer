@@ -43,7 +43,7 @@ namespace UitgaveBeheer.Controllers
                 Categorie = model.Categorie
             });
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(List));
         }
         public IActionResult Details([FromRoute] int id)
         {
@@ -60,16 +60,13 @@ namespace UitgaveBeheer.Controllers
         }
         public IActionResult Update([FromRoute] int id)
         {
-            Contact contact = _contactDatabase.GetContact(id);
-            return View(new ContactEditViewModel
+            Expense expense = _db.GetExpense(id);
+            return View(new ExpenseUpdateViewModel
             {
-                Name = contact.Name,
-                Surname = contact.Surname,
-                Email = contact.Email,
-                BirthDate = contact.BirthDate,
-                TelNr = contact.TelNr,
-                Address = contact.Address,
-                Annotation = contact.Annotation
+                Omschrijving = expense.Omschrijving,
+                Bedrag = expense.Bedrag,
+                Datum = expense.Datum,
+                Categorie = expense.Categorie
             });
         }
         [HttpPost]
@@ -85,9 +82,10 @@ namespace UitgaveBeheer.Controllers
                 Omschrijving = vm.Omschrijving,
                 Bedrag = vm.Bedrag,
                 Categorie = vm.Categorie,
+                Datum = vm.Datum
             });
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(List));
         }
         public IActionResult Delete([FromRoute] int id)
         {
@@ -104,6 +102,36 @@ namespace UitgaveBeheer.Controllers
         {
             _db.Delete(id);
             return RedirectToAction(nameof(List));
+        }
+        public IActionResult Overview()
+        {
+            var allExpenses = _db.GetExpenses().Where(x => x.Datum.Year == DateTime.Now.Year).Where(x => x.Datum.Month == DateTime.Now.Month);
+            if (allExpenses != null)
+            {
+                Expense highest = allExpenses.OrderByDescending(x => x.Bedrag).First();
+                Expense lowest = allExpenses.OrderBy(x => x.Bedrag).First();
+                var groupByDay = allExpenses.GroupBy(x => x.Datum);
+
+
+                return View(new OverviewViewModel
+                {
+                    Datum = DateTime.Now,
+                    OmschrijvingHoogst = highest.Omschrijving,
+                    BedragHoogst = highest.Bedrag,
+                    OmschrijvingLaagst = lowest.Omschrijving,
+                    BedragLaagst = lowest.Bedrag,
+                    DatumDag = DateTime.Now,
+                    BedragDag = 100.00,
+                    CatHoog = "test",
+                    BedragCatHoog = 10.00,
+                    CatLaag = "Lowtest",
+                    BedragCatLaag = 0.00
+
+
+                });
+            }
+
+            return View();
         }
     }
 }
