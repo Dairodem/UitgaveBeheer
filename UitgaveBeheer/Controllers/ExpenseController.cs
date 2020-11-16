@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using ASPCore02.Database;
 using Microsoft.AspNetCore.Mvc;
 using UitgaveBeheer.Domain;
@@ -103,35 +104,77 @@ namespace UitgaveBeheer.Controllers
             _db.Delete(id);
             return RedirectToAction(nameof(List));
         }
-        public IActionResult Overview()
+        public IActionResult Overview(DateTime? date)
         {
-            var allExpenses = _db.GetExpenses().Where(x => x.Datum.Year == DateTime.Now.Year).Where(x => x.Datum.Month == DateTime.Now.Month);
-            if (allExpenses != null)
+            DateTime myDate = (DateTime)date;
+            
+            var allExpenses = _db.GetExpenses().Where(x => myDate.Year == myDate.Year).Where(x => x.Datum.Month == myDate.Month);
+            if (allExpenses.Count() != 0)
             {
                 Expense highest = allExpenses.OrderByDescending(x => x.Bedrag).First();
                 Expense lowest = allExpenses.OrderBy(x => x.Bedrag).First();
                 var groupByDay = allExpenses.GroupBy(x => x.Datum);
 
+                double max = 0;
+                DateTime day = new DateTime();
+                foreach (var item in groupByDay)
+                {
+                    double total = 0;
+
+                    foreach (Expense expense in item)
+                    {
+                        total += expense.Bedrag; 
+                    }
+                    if (total > max)
+                    {
+                        max = total;
+                        day = item.Key;
+                    }
+                }
+
+                var cat = allExpenses.GroupBy(x => x.Categorie);
+                double highCatV = 0;
+                double lowCatV = double.MaxValue;
+                string highCatN = "";
+                string lowCatN = "";
+                foreach (var item in cat)
+                {
+                    double total = 0;
+                    foreach (Expense expense in item)
+                    {
+                        total += expense.Bedrag;
+                    }
+                    if (total > highCatV)
+                    {
+                        highCatV = total;
+                        highCatN = item.Key;
+                    }
+                    if (total < lowCatV)
+                    {
+                        lowCatV = total;
+                        lowCatN = item.Key; 
+                    }
+                }
 
                 return View(new OverviewViewModel
                 {
-                    Datum = DateTime.Now,
+                    Datum = (DateTime)date,
                     OmschrijvingHoogst = highest.Omschrijving,
                     BedragHoogst = highest.Bedrag,
                     OmschrijvingLaagst = lowest.Omschrijving,
                     BedragLaagst = lowest.Bedrag,
-                    DatumDag = DateTime.Now,
-                    BedragDag = 100.00,
-                    CatHoog = "test",
-                    BedragCatHoog = 10.00,
-                    CatLaag = "Lowtest",
-                    BedragCatLaag = 0.00
+                    DatumDag = day,
+                    BedragDag = max,
+                    CatHoog = highCatN,
+                    BedragCatHoog = highCatV,
+                    CatLaag = lowCatN,
+                    BedragCatLaag = lowCatV
 
 
                 });
             }
 
-            return View();
+            return View(new OverviewViewModel { Datum = (DateTime)date});
         }
     }
 }

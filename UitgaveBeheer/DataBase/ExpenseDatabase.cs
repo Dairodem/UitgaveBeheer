@@ -30,7 +30,7 @@ namespace ASPCore02.Database
                 Insert(new Expense { Omschrijving = "Tankbeurt", Bedrag = 100.36, Datum = new DateTime(2020, 9, 15), Categorie = "Wagen" });
                 Insert(new Expense { Omschrijving = "Colruyt", Bedrag = 87.33, Datum = new DateTime(2020, 10, 11), Categorie = "Boodschappen" });
                 Insert(new Expense { Omschrijving = "Colruyt", Bedrag = 94.04, Datum = new DateTime(2020, 9, 15), Categorie = "Boodschappen" });
-                Insert(new Expense { Omschrijving = "Delhaize", Bedrag = 214.97, Datum = new DateTime(2020, 9, 23), Categorie = "Boodschappen" });
+                Insert(new Expense { Omschrijving = "Delhaize", Bedrag = 100.97, Datum = new DateTime(2020, 9, 23), Categorie = "Boodschappen" });
                 Insert(new Expense { Omschrijving = "Elektriciteit", Bedrag = 125.95, Datum = new DateTime(2020,10,20), Categorie = "Energie" });
                 Insert(new Expense { Omschrijving = "Elektriciteit", Bedrag = 125.95, Datum = new DateTime(2020, 9, 20), Categorie = "Energie" });
                 Insert(new Expense { Omschrijving = "Tankbeurt", Bedrag = 98.45, Datum = new DateTime(2020, 11, 19), Categorie = "Wagen" });
