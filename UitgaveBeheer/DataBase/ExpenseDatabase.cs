@@ -37,7 +37,7 @@ namespace UitgaveBeheer.Database
 
         public Expense Insert(Expense expense)
         {
-            _expenseDbContext.Add(expense);
+            _expenseDbContext.Expenses.Add(expense);
             return expense;
         }
 
@@ -46,7 +46,7 @@ namespace UitgaveBeheer.Database
             var expense = _expenseDbContext.Expenses.SingleOrDefault(x => x.Id == id);
             if (expense != null)
             {
-                _expenseDbContext.Remove(expense);
+                _expenseDbContext.Expenses.Remove(expense);
             }
         }
 

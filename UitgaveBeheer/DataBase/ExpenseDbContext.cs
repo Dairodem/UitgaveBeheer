@@ -10,6 +10,8 @@ namespace UitgaveBeheer.DataBase
     public class ExpenseDbContext : DbContext
     {
 
+        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Categorie> Categories { get; set; }
         public ExpenseDbContext(DbContextOptions<ExpenseDbContext> options) : base (options)
         {
 
@@ -19,7 +21,5 @@ namespace UitgaveBeheer.DataBase
             modelBuilder.Entity<Categorie>().HasData(new Categorie { Id = 1, Name = "Wagen" });
             modelBuilder.Entity<Categorie>().HasData(new Categorie { Id = 2, Name = "Energie" });
         }
-        public DbSet<Expense> Expenses { get; set; }
-        public DbSet<Categorie> Categories { get; set; }
     }
 }

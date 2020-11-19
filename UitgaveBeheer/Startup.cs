@@ -29,10 +29,10 @@ namespace UitgaveBeheer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ExpenseDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
-            services.AddSingleton<IExpenseDatabase, ExpenseDatabase>();
+            services.AddTransient<IExpenseDatabase, ExpenseDatabase>();
             services.AddTransient<IExpenseService, ExpenseService>();
             services.AddAutoMapper(typeof(Startup));
         }
